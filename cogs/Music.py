@@ -3,7 +3,7 @@ from discord.ext import commands
 from models.Drink import Drink
 from util import Utility
 
-class Music(commands.Cog, name='Jukebox', description='Used to automatically play environmental songs and ambient music'):
+class Music(commands.Cog, name='Jukebox', description='Music Player which helps to easily retireve youtube URL for Hydra'):
 
     def __init__(self, bot):
         self.bot = bot
@@ -17,7 +17,7 @@ class Music(commands.Cog, name='Jukebox', description='Used to automatically pla
             "cave": ['https://www.youtube.com/watch?v=kxqJuc1HHbg&t=397s']
         }
     
-    @commands.command(name='music', description='Plays any of the following songs:\nBattle Music')
+    @commands.command(name='music', description='Plays any of the following themes:\nsession-start\nbattle-music\ndesert\ntown-center\nbar\ndocks\ncave')
     async def music(self, ctx: commands.Context, *args):
         url = None
         is_dm = False
@@ -36,8 +36,6 @@ class Music(commands.Cog, name='Jukebox', description='Used to automatically pla
 
         else:
             await ctx.channel.send(f"Here you are, Master:\n!play {url}")
-
-
     
     def _url_factory(self, theme):
         print(theme)

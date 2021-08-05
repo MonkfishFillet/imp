@@ -101,7 +101,7 @@ class DrinkEmbedder():
 
     def __init__(self, drink):
         self.drink = drink
-        embed = Embed(title=self.drink._name, description='A drink for you, good Bud.', color=Colors().dark_navy)
+        embed = Embed(title=self.drink._name, description='A drink for you, friend...', color=Colors().dark_navy)
         self.embed = self.embed_drink(embed)
         
     def embed_drink(self, embed):
@@ -254,10 +254,10 @@ class Colors(Configurable):
 #region Channels
 '''
 @author: Keeth S.
-@desc: Enum of all channel ids
+@desc: Enum of all Channel ids
 '''
 class Channels(Enum):
-        AnNNOUNCEMENTS = 834465768703787079
+        ANNOUNCEMENTS = 834465768703787079
         GENERAL = 834465065234726945
         MAPS = 834471436538216448
         FIGURES = 834471455789416499
@@ -270,4 +270,14 @@ class Channels(Enum):
         DM_SCREENS = 872602011512733737
         DM_RESOURCES = 872916292804440146
         BOT_TESTING = 872604886984958022
+        PINS = 872962501707456592
+#endregion
+
+#region Channels
+'''
+@author: Keeth S.
+@desc: Enum of all Role ids
+'''
+class Roles(Enum):
+    GOD_OF_THE_MULTIVERSE = 834467639744790559
 #endregion

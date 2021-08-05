@@ -4,7 +4,7 @@ from discord.ext import commands
 from models.Drink import Drink
 from util import Utility
 
-class Bartender(commands.Cog, name='Bartender', description='Used to provide any bud with a delicious, sensual drink'):
+class Bartender(commands.Cog, name='Bartender', description='Bartender serves up a random alcoholic or nonalcoholic drink in an embedded fashion!'):
 
     def __init__(self, bot):
         self.bot = bot
