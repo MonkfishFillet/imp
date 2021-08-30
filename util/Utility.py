@@ -1,3 +1,4 @@
+from _typeshed import Self
 import json
 import requests    
 from discord import Embed
@@ -281,3 +282,16 @@ class Channels(Enum):
 class Roles(Enum):
     GOD_OF_THE_MULTIVERSE = 834467639744790559
 #endregion
+
+class CharacterFactory(Configurable):
+    def __init__(self):
+        Configurable.__init__(self)
+
+    
+    def get_characters(self):
+        characters = []
+
+        for char in self._file['characters']:
+            characters.append(char)
+
+        return characters

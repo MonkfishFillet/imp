@@ -75,5 +75,16 @@
         "DARK_NAVY": 2899536,
         "LUMINOUS_VIVID_PINK": 16580705,
         "DARK_VIVID_PINK": 12320855
+    },
+    "characters": {
+        "0": {
+            "first_name": "Reyna",
+            "last_name": "Aiden",
+            "hp": 76,
+            "ac": 14,
+            "passive_perception": 16,
+            "passive_investigation": 12,
+            "passive_insight": 13
+        }
     }
 }
