@@ -23,7 +23,7 @@ def unload_cogs():
             bot.unload_extension(f'cogs.{files[:-3]}')
             print(f'{files[:-3]} extension unloaded')
 
-@bot.command(name='refresh', description='Reloads all cogs', alais=['refresh, reload'])
+@bot.command(name='refresh', description='Reloads all cogs', alais=['refresh, reload'], hidden=True)
 async def refresh(ctx: commands.Context):
     print('Reloading Cogs...\n')
     unload_cogs()

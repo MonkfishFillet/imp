@@ -1,6 +1,7 @@
 import json
 import requests    
 from discord import Embed
+from enum import Enum
 
 #region Configuration
 '''
@@ -100,7 +101,7 @@ class DrinkEmbedder():
 
     def __init__(self, drink):
         self.drink = drink
-        embed = Embed(title=self.drink._name, description='A drink for you, good Bud.', color=Colors().dark_navy)
+        embed = Embed(title=self.drink._name, description='A drink for you, friend...', color=Colors().dark_navy)
         self.embed = self.embed_drink(embed)
         
     def embed_drink(self, embed):
@@ -179,7 +180,7 @@ class DrinkJsonSanitizer(Sanitizer):
         return drink_dict
 #endregion
 
-#region
+#region Colors
 '''
 @author: Keeth S.
 @desc: Configuration Child Object which stores the color values for each 
@@ -248,4 +249,35 @@ class Colors(Configurable):
 
     def _get_color(self, color):
         return self._color_list[color]
+#endregion
+
+#region Channels
+'''
+@author: Keeth S.
+@desc: Enum of all Channel ids
+'''
+class Channels(Enum):
+        ANNOUNCEMENTS = 834465768703787079
+        GENERAL = 834465065234726945
+        MAPS = 834471436538216448
+        FIGURES = 834471455789416499
+        IDEAS = 834473748441595905
+        CONCERNS = 834473790683218000
+        MUSIC_STAGE = 834485620843085884
+        THE_BAR = 834465065234726946
+        THE_BACK_ROOMS = 834473457504616458
+        SHIT_POST_ALLEY = 834469160045248534
+        DM_SCREENS = 872602011512733737
+        DM_RESOURCES = 872916292804440146
+        BOT_TESTING = 872604886984958022
+        PINS = 872962501707456592
+#endregion
+
+#region Channels
+'''
+@author: Keeth S.
+@desc: Enum of all Role ids
+'''
+class Roles(Enum):
+    GOD_OF_THE_MULTIVERSE = 834467639744790559
 #endregion
