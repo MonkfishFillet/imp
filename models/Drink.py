@@ -1,36 +1,62 @@
+from discord import Embed, Color
+
 '''
-@author: Keeth S.
-@params: [
-    json: dict
-    sanitizer: util.Sanitizer.DrinkJsonSanitizer
-    formatter: util.DrinkFormatter
-    embedder: util.DrinkEmbeder
-]
-@desc: Creates a Drink Object used to embed an ice cold brew
+Drink Object
+    Processes json data retrieved from the request object and
+    stores a Discord.Embed object
 '''
 class Drink():
+    def __init__(self, drink_json: dict):
+        drink_json = self.sanitize_json(drink_json)
+        self.img = drink_json.get('strDrinkThumb')
+        self.name = drink_json.get('strDrink')
+        self.category = drink_json.get('strCategory')
+        self.alcoholic = drink_json.get('strAlcoholic')
+        self.glass = drink_json.get('strGlass')
+        self.ingredients_string = self.get_ingredient_string(drink_json)
+        self.instructions = drink_json.get('strInstructions')
+        self.embed = self.embed_drink()
 
+    
+    def sanitize_json(self, json: dict):
+        drink_dict = {}
+        for key in json:
+            if(json[key] != None):
+                drink_dict[key] = json[key]  
 
-    def __init__(self, json, sanitizer, formatter, embedder):
-        self._sanitizer = sanitizer(json)
-        _json = self._sanitizer.clean_json()
-        self._formatter = formatter(_json)
-        self._img = _json.get('strDrinkThumb')
-        self._name = _json.get('strDrink')
-        self._category = _json.get('strCategory')
-        self._alcoholic = _json.get('strAlcoholic')
-        self._glass = _json.get('strGlass')
-        self._ingredients_string = self._formatter.ingredients_string
-        self._instructions = _json.get('strInstructions')
-        self.embed = embedder(self).embed
+        return drink_dict  
+    
+    
+    def get_ingredient_string(self, json) -> list:
+        ingredients = [json.get(ing) for ing in json if 'Ingredient' in ing and json.get(ing) is not None]
+        measurements = [json.get(measure) for measure in json if 'Measure' in measure and json.get(measure) is not None]
         
+        if(len(measurements) == 0):
+            return ingredients
         
-    def __repr__(self):
-        new_line='\n'
-        tab = '\t'
-        bracket = '{}'
-        rerp_string = f'Drink{bracket[0]}{new_line}{tab}name: {self._name},{new_line}{tab}category: {self._category},{new_line}{tab}alcoholic: {self._alcoholic},'
-        rerp_string += f'{new_line}{tab}glass: {self._glass},{new_line}{tab}ingredients: {self.ingredients__string},{new_line}{tab}instructions: {self._instructions},'
-        rerp_string += f'{new_line}{tab}image: {self._img},{new_line}{tab}embed: {self.embed},{new_line}{tab}{new_line}{tab}sanitzier: {self._sanitizer},'
-        rerp_string += f'{new_line}{tab}{new_line}{tab}formatter: {self._formatter},{new_line}{tab}{bracket[1]}'  
-        return rerp_string 
+        ingredient_list = []
+        for i in range(len(ingredients)):
+            if(i < len(measurements)):
+                ingredient_list.append(measurements[i].strip() + " " + ingredients[i])
+            elif(ingredients[i] == ' '):
+                pass
+            else:
+                ingredient_list.append(ingredients[i])
+        return ingredient_list
+
+    def embed_drink(self) -> Embed:
+        embed = Embed(title= self.name, description='A drink for you, Master...', color=Color.dark_blue().value)
+        embed.set_image(url= self.img)
+        embed.add_field(name="Name", value= self.name)
+        embed.add_field(name="Category", value= self.category)
+        embed.add_field(name="\u200b", value='\u200b')
+        embed.add_field(name="Alcoholic?", value= self.alcoholic)
+        embed.add_field(name="Glass Type", value= self.glass)
+        embed.add_field(name="\u200b", value='\u200b')
+        ingredient_string = ""
+        for string in  self.ingredients_string:
+            ingredient_string += string + '\n'
+        embed.add_field(name="Ingredients", value=ingredient_string, inline=False)
+        embed.add_field(name="Instructions", value= self.instructions, inline=False)
+        embed.set_footer(text="Please enjoy... Filth...")
+        return embed
