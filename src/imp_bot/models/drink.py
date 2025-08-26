@@ -1,16 +1,4 @@
-'''
-@author: Keeth S.
-@params: [
-    json: dict
-    sanitizer: util.Sanitizer.DrinkJsonSanitizer
-    formatter: util.DrinkFormatter
-    embedder: util.DrinkEmbeder
-]
-@desc: Creates a Drink Object used to embed an ice cold brew
-'''
 class Drink():
-
-
     def __init__(self, json, sanitizer, formatter, embedder):
         self._sanitizer = sanitizer(json)
         _json = self._sanitizer.clean_json()
